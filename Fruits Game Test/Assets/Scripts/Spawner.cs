@@ -43,7 +43,7 @@ public class Spawner : MonoBehaviour
     private void SpawnNewObject()
     {
         // Destroy the currently spawned fruit if it exists
-        if (currentFruit != null && currentFruit.transform.position.x == SpawnPos.x)
+        if (currentFruit != null && currentFruit.transform.position.y >= SpawnPos.y)
         {
             Destroy(currentFruit);
         }
