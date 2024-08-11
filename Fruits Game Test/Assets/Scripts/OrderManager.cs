@@ -19,6 +19,7 @@ public class OrderManager : MonoBehaviour
     public float levelTime = 60f; // Time for the level
     private float timeRemaining;
     private bool levelEnded = false; // Flag to check if the level has ended
+    public LevelManager levelManager; // Reference to LevelManager
 
     // UI References
     public TMP_Text orderText;
@@ -106,7 +107,11 @@ public class OrderManager : MonoBehaviour
         else
         {
             // All orders completed just in time, load "LevelCompleted" scene
-            SceneManager.LoadScene("Level Completed");
+            // SceneManager.LoadScene("Level Completed");
+            if (levelManager != null)
+            {
+                levelManager.CompleteLevel();
+            }
         }
     }
 }

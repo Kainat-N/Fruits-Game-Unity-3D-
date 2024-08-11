@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425cae978756a204cb9edef930f7f861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: -3
+  forceMultiplier: -2
   spawner: {fileID: 1947329196}
 --- !u!54 &959319532
 Rigidbody:
@@ -1493,8 +1493,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.3, y: 1.17, z: 2.53}
-  m_Center: {x: -0.18, y: 2.6, z: -1.5}
+  m_Size: {x: 2.3, y: 0.69, z: 2.53}
+  m_Center: {x: -0.18, y: 2.5, z: -1.5}
 --- !u!1 &1137735609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,7 +1531,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 569, y: -416}
+  m_AnchoredPosition: {x: 569, y: -446}
   m_SizeDelta: {x: 137.8, y: 42.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137735611
@@ -1798,7 +1798,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -544, y: -426}
+  m_AnchoredPosition: {x: -544, y: -446}
   m_SizeDelta: {x: 137.8, y: 42.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1490925528
@@ -2257,6 +2257,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1859762757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1859762759}
+  - component: {fileID: 1859762758}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1859762758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859762757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6a8c9a5da44df40bc674edfecdf257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1859762759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859762757}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5404541, y: 1.7990259, z: -6.793725}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1947329195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,6 +2334,7 @@ MonoBehaviour:
   spawnObject: {fileID: 2884585056880915120, guid: 0f354828740feb84389e36f359f25b52, type: 3}
   fruitSelector: {fileID: 2038679754}
   spawnInterval: 2
+  positionTolerance: 0.3
 --- !u!4 &1947329197
 Transform:
   m_ObjectHideFlags: 0
@@ -2358,6 +2403,7 @@ MonoBehaviour:
     - Banana
   pointsPerOrder: 25
   levelTime: 60
+  levelManager: {fileID: 1859762758}
   orderText: {fileID: 905491007}
   scoreText: {fileID: 1599954816}
   timeText: {fileID: 1073013301}
@@ -2425,6 +2471,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 74f1a914f4f106b46af18fc1f60c9a6c, type: 2}
+    - target: {fileID: 2045750567719851288, guid: 6d5b1fae849650a4bb5ba50dcb5e987b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5780d830cc1ecb241a1f0cb0e762dc51, type: 2}
     - target: {fileID: 3295532125829364141, guid: 6d5b1fae849650a4bb5ba50dcb5e987b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2532,3 +2582,4 @@ SceneRoots:
   - {fileID: 1123599647}
   - {fileID: 78473190}
   - {fileID: 2455366513328944265}
+  - {fileID: 1859762759}

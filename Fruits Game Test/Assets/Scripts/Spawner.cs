@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
     public float spawnInterval = 2f; // Time between spawns
 
     private GameObject currentFruit; // Reference to the currently spawned fruit
+    public float positionTolerance = 0.2f;
 
     #region Singleton
 
@@ -33,26 +34,46 @@ public class Spawner : MonoBehaviour
 
     public void SetSpawnObject(GameObject newSpawnObject)
     {
-        spawnObject = newSpawnObject;
-        Start();
-        //SpawnNewObject();
-    }
-
-
-
-    private void SpawnNewObject()
-    {
-        // Destroy the currently spawned fruit if it exists
-        if (currentFruit != null && currentFruit.transform.position.y >= SpawnPos.y)
+        // Destroy the current fruit at the spawn position (if any)
+        if (currentFruit != null && IsAtSpawnPosition(currentFruit))
         {
             Destroy(currentFruit);
         }
 
-        
-        currentFruit = Instantiate(spawnObject, SpawnPos, Quaternion.identity);
-        //Instantiate(spawnObject, SpawnPos, Quaternion.identity);
+        spawnObject = newSpawnObject;
+        SpawnNewObject();
+    }
 
-        // Set specific rotation for banana (or other fruits if needed)
+    private bool IsAtSpawnPosition(GameObject fruit)
+    {
+        // Get the collider bounds
+        Collider fruitCollider = fruit.GetComponent<Collider>();
+        if (fruitCollider != null)
+        {
+            Bounds bounds = fruitCollider.bounds;
+            float bottomY = bounds.min.y;
+
+            // Check if the bottom of the fruit is at or near the spawn position
+            if (Mathf.Abs(bottomY - SpawnPos.y) < positionTolerance)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void SpawnNewObject()
+    {
+        // Destroy the current fruit at the spawn position (if any)
+        if (currentFruit != null && IsAtSpawnPosition(currentFruit))
+        {
+            Destroy(currentFruit);
+        }
+
+        // Instantiate the new fruit
+        currentFruit = Instantiate(spawnObject, SpawnPos, Quaternion.identity);
+
+        // Set specific rotation for the banana (or other fruits if needed)
         if (spawnObject.name == "Banana")
         {
             currentFruit.transform.rotation = Quaternion.Euler(0, -90, 0);
