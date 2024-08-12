@@ -17,7 +17,7 @@ public class AppleBehaviour : MonoBehaviour
             if (collisionCount >= 2)
             {
                 // Start the coroutine to handle the delay
-                StartCoroutine(DelayedDestroy(1f)); // 1-second delay
+                StartCoroutine(DelayedDestroy(3f)); // 1-second delay
             }
         }
     }

@@ -24,7 +24,7 @@ public class OrderManager : MonoBehaviour
     // UI References
     public TMP_Text orderText;
     public TMP_Text scoreText;
-    public TMP_Text timeText;
+    [SerializeField] TextMeshProUGUI timeText;
 
     void Start()
     {
@@ -37,7 +37,10 @@ public class OrderManager : MonoBehaviour
     {
         if (levelEnded) return; // Stop updating if the level has ended
 
-        timeRemaining -= Time.deltaTime;
+        if (timeRemaining > 0) {
+            timeRemaining -= Time.deltaTime;
+        }
+    
         UpdateTimeUI();
 
         if (timeRemaining <= 0)
@@ -91,13 +94,17 @@ public class OrderManager : MonoBehaviour
 
     void UpdateTimeUI()
     {
-        timeText.text = "" + Mathf.Ceil(timeRemaining).ToString();
+        
+        int minutes = Mathf.FloorToInt(timeRemaining / 60);
+        int seconds = Mathf.FloorToInt(timeRemaining % 60);
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     void EndLevel()
     {
         levelEnded = true; // Mark the level as ended
         Debug.Log("Level Ended. Score: " + score);
+        
         // Check if there are any remaining orders
         if (currentOrderIndex < orders.Count || currentOrder.fruits.Count > 0)
         {
