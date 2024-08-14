@@ -4,7 +4,20 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     private int currentLevelIndex;
-    private string currentLevelName;
+    public string currentLevelName;
+
+    public static string previousLevelName;
+
+
+    // Audio Components
+    public AudioSource audioSource; // Reference to the AudioSource component
+    public AudioClip levelCompletedSound; // Sound effect for level completed
+
+    // Call this method before loading the "Level Failed" screen
+    public void StoreCurrentLevel()
+    {
+        previousLevelName = SceneManager.GetActiveScene().name;
+    }
 
     private void Start()
     {
@@ -24,6 +37,13 @@ public class LevelManager : MonoBehaviour
 
     public void CompleteLevel()
     {
+        // Play the level completed sound
+        if (audioSource != null && levelCompletedSound != null)
+        {
+            audioSource.PlayOneShot(levelCompletedSound);
+        }
+
+
         // Load the "Level Completed" screen when the level is completed
         SceneManager.LoadScene("Level Completed");
     }

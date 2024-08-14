@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level Failed.unity
     guid: 10f654c436153aa489e40640784a3913
+  - enabled: 1
+    path: Assets/Scenes/Game Completed.unity
+    guid: 365e7ae8b342b58488ea6d3c8e8a77a8
   m_configObjects: {}

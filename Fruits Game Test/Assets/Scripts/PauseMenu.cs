@@ -7,6 +7,8 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
 
+
+
     public void Pause() {
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
@@ -22,9 +24,28 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    public void Restart() {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+    public void Restart() 
+    {
+        //Debug.Log("Retry button pressed, reloading level...");
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1.0f;
+
+    }
+
+
+    public void Retry()
+    {
+        if (!string.IsNullOrEmpty(LevelManager.previousLevelName))
+        {
+            Debug.Log("Retrying level: " + LevelManager.previousLevelName);
+            SceneManager.LoadScene(LevelManager.previousLevelName);
+            Time.timeScale = 1.0f;  // Ensure the game time is running normally
+        }
+        else
+        {
+            Debug.LogWarning("No previous level stored!");
+        }
     }
 
 }

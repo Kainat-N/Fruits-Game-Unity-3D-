@@ -24,7 +24,7 @@ public class LevelCompletedManager : MonoBehaviour
         {
             Debug.Log("Next level does not exist, loading GameCompletedScene");
             // If the next level doesn't exist, load the Game Completed screen
-            SceneManager.LoadScene("GameCompletedScene");
+            SceneManager.LoadScene("Game Completed");
         }
     }
 }

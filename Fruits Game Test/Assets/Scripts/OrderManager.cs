@@ -12,6 +12,9 @@ public class Order
 public class OrderManager : MonoBehaviour
 {
     public List<Order> orders; // List of orders
+
+    private int completedOrders = 0; // Track the number of completed orders
+
     private int currentOrderIndex = 0;
     private Order currentOrder;
     private int score = 0;
@@ -24,11 +27,20 @@ public class OrderManager : MonoBehaviour
     // UI References
     public TMP_Text orderText;
     public TMP_Text scoreText;
+    public TMP_Text orderCountText;
     [SerializeField] TextMeshProUGUI timeText;
+
+    //Audio References
+    public AudioSource audioSource; // Reference to the AudioSource component
+    public AudioClip correctFruitSound; // Sound effect for correct fruit landing
+    public AudioClip orderCompletedSound; // Sound effect for order completed
+    public AudioClip levelFailedSound; // Sound effect for level completed
+
 
     void Start()
     {
         timeRemaining = levelTime;
+        UpdateOrderCountUI();
         LoadNextOrder();
         UpdateScoreUI();
     }
@@ -71,9 +83,31 @@ public class OrderManager : MonoBehaviour
             score += pointsPerOrder;
             UpdateScoreUI();
 
-            if (currentOrder.fruits.Count == 0)
+            
+
+
+            // Check if this is the last fruit for the current order
+            bool isLastFruit = currentOrder.fruits.Count == 0;
+
+            // Play sound effect for correct fruit landing, if it's not the last fruit
+            if (!isLastFruit && audioSource != null && correctFruitSound != null)
             {
-                LoadNextOrder();
+                audioSource.PlayOneShot(correctFruitSound);
+            }
+
+            if (isLastFruit)
+            {
+                completedOrders++; // Increment the count of completed orders
+                UpdateOrderCountUI(); // Update the UI
+
+                // Play sound effect for order completion
+                if (audioSource != null && orderCompletedSound != null)
+                {
+                    audioSource.PlayOneShot(orderCompletedSound);
+                }
+
+                    //------------------------------------------------
+                    LoadNextOrder();
             }
         }
         else
@@ -90,6 +124,11 @@ public class OrderManager : MonoBehaviour
     void UpdateScoreUI()
     {
         scoreText.text = "" + score;
+    }
+
+    void UpdateOrderCountUI()
+    {
+        orderCountText.text = $"{completedOrders}/{orders.Count}"; // Display completed/total orders
     }
 
     void UpdateTimeUI()
@@ -109,6 +148,15 @@ public class OrderManager : MonoBehaviour
         if (currentOrderIndex < orders.Count || currentOrder.fruits.Count > 0)
         {
             // Orders are not completed, load "LevelFailed" scene
+            levelManager.StoreCurrentLevel();
+
+
+            // Play the level completed sound
+            if (audioSource != null && levelFailedSound != null)
+            {
+                audioSource.PlayOneShot(levelFailedSound);
+            }
+
             SceneManager.LoadScene("Level Failed");
         }
         else
